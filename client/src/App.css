@@ -1,0 +1,72 @@
+*{
+    box-sizing: border-box;
+}
+body {
+    background-color: aquamarine;
+    margin: 0;
+}
+h1 {
+    background-color: grey;
+    padding: 18px;
+    color: black;
+    text-align: center;
+}
+.App {
+    padding: 30px;
+    background-color: rgb(63, 62, 62);
+    width: 100%;
+    margin: 50px auto;
+    box-shadow: 1px 2px 5px black;
+}
+input {
+    width: 80%;
+    border: 0;
+    padding: 9px 5px;
+}
+button {
+    width: 20%;
+    border: 0;
+    padding: 6px 0;
+    margin: 0;
+    outline: 0;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: aquamarine;
+}
+ul {
+    list-style: none;
+    padding: 0;
+}
+li {
+    margin: 5px 0;
+}
+li span {
+    display: inline-block;
+    width: 30%;
+    color: aquamarine;
+    text-transform: uppercase;
+}
+li > button:first-of-type {
+    margin-right: 1%;
+    width: 19%;
+}
+li> button:last-of-type {
+    background-color: gray;
+}
+ul>form {
+    margin: 100px;
+}
+
+p {
+    font-size: 50px;
+    text-align: center;
+    text-transform: uppercase;
+}
+.elements{
+    list-style-type: none;
+    padding: 20px;
+}
+.btn{
+    margin: 20px;
+}
