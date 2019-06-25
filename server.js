@@ -2,15 +2,17 @@ const express = require('express');
 const mongoose = require("mongoose");
 const Model = require ("./model/model");
 const bodyParser = require("body-parser");
+const path = require ('path');
 const logger = require("morgan");
 const secret = require("./secret").dbUri;
 const cors = require("cors");
 const app = express();
-const port = 5000;
+
+const PORT = process.env.PORT || 5000; // step1 heroku
 
 
 // backend connection to MongoDB database
-mongoose.connect(secret, {useNewUrlParser: true, useFindAndModify: false});
+mongoose.connect( process.env.MONGODB_URI || secret /* step2 heroku */ , {useNewUrlParser: true, useFindAndModify: false});
 
 //* Check if database is connected succesfully
 let db = mongoose.connection;
@@ -22,7 +24,14 @@ db.on("error", ()=> console.log("Connection error"));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
+// step3 heroku
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
 
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'client', 'build', 'index,html')); // relative path
+    });
+}
 
 // Use this library for cross origin requests
 app.use(cors({ credentials: true, origin: true }));
@@ -84,4 +93,4 @@ app.post("/addData", (req,res) =>{
 
 
 
-app.listen(port,()=> console.log(`Server started on port ${port}`));
+app.listen(PORT,()=> console.log(`Server started on port ${PORT}`));
