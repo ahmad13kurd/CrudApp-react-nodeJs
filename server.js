@@ -8,11 +8,11 @@ const secret = require("./secret").dbUri;
 const cors = require("cors");
 const app = express();
 
-const PORT = process.env.PORT || 5000; // step1 heroku
+const PORT = process.env.PORT || 5000;
 
 
 // backend connection to MongoDB database
-mongoose.connect( process.env.MONGODB_URI || secret /* step2 heroku */ , {useNewUrlParser: true, useFindAndModify: false});
+mongoose.connect( secret, {useNewUrlParser: true, useFindAndModify: false});
 
 //* Check if database is connected succesfully
 let db = mongoose.connection;
@@ -23,15 +23,6 @@ db.on("error", ()=> console.log("Connection error"));
 // bodyparser to parse the request body in json format
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-
-// step3 heroku
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static('client/build'));
-
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, 'client', 'build', 'index,html')); // relative path
-    });
-}
 
 // Use this library for cross origin requests
 app.use(cors({ credentials: true, origin: true }));
